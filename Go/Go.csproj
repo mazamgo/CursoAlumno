@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="BaseDatos\backup.sql" />
     <Content Include="bootstrap3.3.7\css\bootstrap-theme.css" />
     <Content Include="bootstrap3.3.7\css\bootstrap-theme.min.css" />
     <Content Include="bootstrap3.3.7\css\bootstrap.css" />
