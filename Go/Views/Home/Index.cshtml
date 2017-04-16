@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Model.Wrapper.AlumnoWrapper.ListAlumnosWrapper>
+ 
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2 class="page-header">
+    Listado Alumnos
+</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width:200px">Nombre</th>
+            <th style="width:200px">Sexo</th>
+            <th style="width:200px">Fecha de Nacimiento</th>
+            <th style="width:100px"></th>
+        </tr>
+    </thead>
+    <tbody>
+       
+    @foreach (var m in Model)
+    {
+    <tr>
+        <th>@(m.Nombre +" "+m.Apellido)</th>
+        <th>@(m.Sexo == 1 ? "Hombre" : "Mujer")</th>
+        <th>@m.FechaNacimiento</th>
+        <th >
+            <a class="btn btn-xs btn-primary btn-block" href="~/home/ver/@m.id">Ver</a></th>
+    </tr>
+
+    }
+    
+    </tbody>
+
+</table>
