@@ -24,33 +24,43 @@
             <dd>@Model.FechaNacimiento</dd>
         </dl>
     </div>
-
-    <div>
-        <div class="panel panel-default">
-            <div class="panel-heading">Cursos</div>
-            <div class="panel-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Curso</th>
-                            <th style="width:200px">Nota</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var c in Model.AlumnoCurso)
-                        {
+    
+    @if (Model.AlumnoCurso.Count() > 0)
+    {
+        <div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Cursos</div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>@c.Curso.Nombre</td>
-                                <td class="text-right">@c.Nota</td>
+                                <th>Curso</th>
+                                <th style="width:200px">Nota</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var c in Model.AlumnoCurso)
+                            {
+                                <tr>
+                                    <td>@c.Curso.Nombre</td>
+                                    <td class="text-right">@c.Nota</td>
+                                </tr>
 
-                        }
+                            }
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
+                </div>
             </div>
         </div>
-    </div>
+
+    }
+    else 
+    {
+        <p>No hay Curso para este Alumno</p>
+    }
+    
+  
 
 </div>

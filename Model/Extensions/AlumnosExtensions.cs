@@ -128,6 +128,17 @@ namespace Model.Extensions
             }
         }
 
+        public static bool SaveAlumnos2 (this DbSet<Alumno> dbset, int id )
+        {
+            Model1 ctx = new Model1();
+
+            if (id == 0) 
+            {
+                
+            }
+           return true; 
+        }
+
 
     }
 }

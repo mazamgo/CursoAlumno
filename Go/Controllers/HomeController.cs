@@ -27,5 +27,10 @@ namespace Go.Controllers
             return View(alumno.ObtenerAlumno(id));
         }
 
+        public ActionResult crud(int id = 0) 
+        {            
+            return View(id == 0 ? new Alumno() : ctx.Alumno.GetAlumnoId(id));
+        }
+
     }
 }
