@@ -22,14 +22,22 @@ namespace Go.Controllers
         }
 
         public ActionResult ver(int id) 
-        {
-            //return View();
-            return View(alumno.ObtenerAlumno(id));
+        {            
+            //return View(alumno.ObtenerAlumno(id));
+            return View(ctx.Alumno.ObtenerAlumno(id));
         }
 
         public ActionResult crud(int id = 0) 
         {            
             return View(id == 0 ? new Alumno() : ctx.Alumno.GetAlumnoId(id));
+        }
+
+        public ActionResult Guardar() 
+        {
+            int id = alumno.id;
+            ctx.Alumno.SaveAlumnos2(id);
+            return Redirect ("~/Home");
+        
         }
 
     }

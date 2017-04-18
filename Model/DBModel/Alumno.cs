@@ -62,24 +62,24 @@ namespace Model.DBModel
 
         //}
 
-        public Alumno ObtenerAlumno(int id)
-        {
-            var alumno = new Alumno();
-            try
-            {
-                using (var ctx = new Model1())
-                {
-                    alumno = ctx.Alumno.Include("AlumnoCurso")
-                        .Include("AlumnoCurso.Curso")
-                        .Where(x => x.id == id).SingleOrDefault();
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-            return alumno;
-        }
+        //public Alumno ObtenerAlumno(int id)
+        //{
+        //    var alumno = new Alumno();
+        //    try
+        //    {
+        //        using (var ctx = new Model1())
+        //        {
+        //            alumno = ctx.Alumno.Include("AlumnoCurso")
+        //                .Include("AlumnoCurso.Curso")
+        //                .Where(x => x.id == id).SingleOrDefault();
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw;
+        //    }
+        //    return alumno;
+        //}
 
    }
 

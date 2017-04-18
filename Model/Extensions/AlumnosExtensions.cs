@@ -128,17 +128,64 @@ namespace Model.Extensions
             }
         }
 
-        public static bool SaveAlumnos2 (this DbSet<Alumno> dbset, int id )
-        {
-            Model1 ctx = new Model1();
-
-            if (id == 0) 
+        public static void SaveAlumnos2 (this DbSet<Alumno> dbset, int id )
+        {            
+            try 
             {
-                
+                using (var ctx = new Model1()) 
+                {
+                    if (id > 0)
+                    {
+                        //Actualizar
+                        ctx.Entry(dbset).State = EntityState.Modified;
+                    }
+                    else 
+                    {
+                        //Agregar
+                        ctx.Entry(dbset).State = EntityState.Added;
+                    }                        
+                }                
+            
             }
-           return true; 
+            catch (Exception e) 
+            {
+                throw;
+            }            
+           //return true; 
         }
 
+        public static void EliminarAlumno(this DbSet<Alumno> dbset, int id)
+        {
+            try
+            {
+                using (var ctx = new Model1())
+                {
+                   ctx.Entry(dbset).State = EntityState.Deleted;                   
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }            
+        }
 
+        public static Alumno ObtenerAlumno(this DbSet<Alumno> dbset, int id)
+        {
+            var alumno = new Alumno();
+            try
+            {
+                using (var ctx = new Model1())
+                {
+                    alumno = ctx.Alumno.Include("AlumnoCurso")
+                        .Include("AlumnoCurso.Curso")
+                        .Where(x => x.id == id).SingleOrDefault();
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return alumno;
+        }
     }
 }
