@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using System.Data;
+using System.Data.Entity;
+
 using Model.DBModel;
 using System.Data.Entity;
 using Model.Wrapper;
@@ -106,6 +110,7 @@ namespace Model.Extensions
             {
                 Model1 context = new Model1();
                 Alumno Alumn = new Alumno();
+                
                 if (iType ==1) // Nuevo
                 {
                     context.Alumno.Add(model);
@@ -128,8 +133,8 @@ namespace Model.Extensions
             }
         }
 
-        public static void SaveAlumnos2 (this DbSet<Alumno> dbset, int id )
-        {            
+        public static void SaveAlumnos2 (this DbSet<Alumno> dbset, Alumno model, int id )
+        {           
             try 
             {
                 using (var ctx = new Model1()) 
@@ -137,13 +142,14 @@ namespace Model.Extensions
                     if (id > 0)
                     {
                         //Actualizar
-                        ctx.Entry(dbset).State = EntityState.Modified;
+                        ctx.Entry(model).State = EntityState.Modified;
                     }
                     else 
                     {
                         //Agregar
-                        ctx.Entry(dbset).State = EntityState.Added;
-                    }                        
+                        ctx.Entry(model).State = EntityState.Added;                        
+                    }
+                    ctx.SaveChanges();
                 }                
             
             }

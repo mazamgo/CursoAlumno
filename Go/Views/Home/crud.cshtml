@@ -2,18 +2,19 @@
 
 @{
     Layout = "~/Views/Shared/Layout.cshtml";
-    ViewBag.Title = (Model.id > 0 ? Model.Nombre +" "+Model.Apellido : "Nuevo Registro");
+    @*ViewBag.Title = (Model.id > 0 ? Model.Nombre +" "+Model.Apellido : "Nuevo Registro");*@
 }
 
 <ol class="breadcrumb">
     <li><a href="~/">Alumnos</a></li>
-    <li class="active">@(Model.id > 0 ? Model.Nombre +" "+ Model.Apellido : "Nuevo Registro" )</li>
+    @*<li class="active">@(Model.id > 0 ? Model.Nombre +" "+ Model.Apellido : "Nuevo Registro" )</li>*@
 </ol>
 
 @using (Html.BeginForm("Guardar", "Home", FormMethod.Post, new { id = "frm-alumno" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+
+    @Html.ValidationSummary(true,"", new {@class = "text-danger" })
 
     @Html.HiddenFor(x => x.id)
     
@@ -27,8 +28,8 @@
                         @Html.LabelFor(model => model.Nombre)
                     </div>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.Nombre, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Nombre)
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 
@@ -43,9 +44,12 @@
                 <div class="editor-label">
                     @Html.LabelFor(model => model.Sexo)
                 </div>
+               
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.Sexo)
-                    @Html.ValidationMessageFor(model => model.Sexo)
+                    <select>
+                        <option @(Model.Sexo == 1 ? "selected" : "" ) value="1">Masculino</option>
+                        <option @(Model.Sexo == 2 ? "selected" : "" ) value="2">Femenino</option>
+                    </select>
                 </div>
 
                 <div class="editor-label">
@@ -56,9 +60,10 @@
                     @Html.ValidationMessageFor(model => model.FechaNacimiento)
                 </div>
 
-                <p>
-                    <input type="submit" value="Create" />
-                </p>
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+               
             </fieldset>
 
         </div>
@@ -66,9 +71,5 @@
     
      
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 

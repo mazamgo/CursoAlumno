@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using System.Data;
+using System.Data.Entity;
+
+using Model;
 using Model.DBModel;
 using Model.Extensions;
 using Model.Wrapper;
@@ -27,17 +31,23 @@ namespace Go.Controllers
             return View(ctx.Alumno.ObtenerAlumno(id));
         }
 
-        public ActionResult crud(int id = 0) 
-        {            
+        public ActionResult crud(int id = 0)
+        {
             return View(id == 0 ? new Alumno() : ctx.Alumno.GetAlumnoId(id));
         }
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Guardar(Alumno x ) {
 
-        public ActionResult Guardar() 
-        {
-            int id = alumno.id;
-            ctx.Alumno.SaveAlumnos2(id);
-            return Redirect ("~/Home");
-        
+            if (ModelState.IsValid) 
+            {
+                int id = x.id;
+                ctx.Alumno.SaveAlumnos2(x, id);
+                return Redirect ("~/Home");            
+            }
+                        
+            return View(x);
         }
 
     }
