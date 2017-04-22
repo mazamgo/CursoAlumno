@@ -166,7 +166,15 @@ namespace Model.Extensions
             {
                 using (var ctx = new Model1())
                 {
-                   ctx.Entry(dbset).State = EntityState.Deleted;                   
+                    Alumno alumno = new Alumno();
+
+                    alumno = ctx.Alumno.Where(x => x.id == id).FirstOrDefault();
+                    if (id > 0) 
+                    {
+                        ctx.Entry(alumno).State = EntityState.Deleted;
+                        ctx.SaveChanges();                    
+                    }
+                    
                 }
             }
             catch (Exception e)

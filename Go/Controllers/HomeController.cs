@@ -16,7 +16,7 @@ namespace Go.Controllers
 {
     public class HomeController : Controller
     {
-        private Alumno alumno = new Alumno();
+        //private Alumno alumno = new Alumno();
         Model1 ctx = new Model1();
 
         public ActionResult Index()
@@ -38,16 +38,26 @@ namespace Go.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Guardar(Alumno x ) {
+        public ActionResult Guardar(Alumno alumno ) {
 
             if (ModelState.IsValid) 
             {
-                int id = x.id;
-                ctx.Alumno.SaveAlumnos2(x, id);
+                int id = alumno.id;
+                ctx.Alumno.SaveAlumnos2(alumno, id);
                 return Redirect ("~/Home");            
             }
-                        
-            return View(x);
+            else 
+            {
+                return View("~/Views/Home/crud.cshtml", alumno);
+            }
+            return View(alumno);
+        }
+
+       public ActionResult Eliminar(int id) 
+        {
+            //int id = alumno.id;
+            ctx.Alumno.EliminarAlumno(id);
+            return Redirect("~/Home");
         }
 
     }
