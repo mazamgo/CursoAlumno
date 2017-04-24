@@ -53,6 +53,23 @@ namespace Go.Controllers
             return View(alumno);
         }
 
+             
+        public JsonResult Guardar2(Alumno alumno)
+        {
+            var rm = new ResponseModel();
+
+            if (ModelState.IsValid)
+            {
+                int id = alumno.id;
+                rm = ctx.Alumno.SaveAlumnos3(alumno, id);
+                if (rm.response) 
+                {
+                    rm.href = Url.Content("~/Home");
+                }                
+            }
+            return Json(rm);
+        }
+
        public ActionResult Eliminar(int id) 
         {
             //int id = alumno.id;

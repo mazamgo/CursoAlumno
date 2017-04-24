@@ -160,6 +160,39 @@ namespace Model.Extensions
            //return true; 
         }
 
+        public static ResponseModel SaveAlumnos3(this DbSet<Alumno> dbset, Alumno model, int id)
+        {
+            var rm = new ResponseModel();
+
+            try
+            {
+                using (var ctx = new Model1())
+                {
+                    if (id > 0)
+                    {
+                        //Actualizar
+                        ctx.Entry(model).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        //Agregar
+                        ctx.Entry(model).State = EntityState.Added;
+                    }
+
+                    rm.SetResponse(true);
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+            return rm;
+        }
+
+
         public static void EliminarAlumno(this DbSet<Alumno> dbset, int id)
         {
             try

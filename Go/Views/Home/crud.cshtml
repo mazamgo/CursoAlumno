@@ -10,7 +10,7 @@
     @*<li class="active">@(Model.id > 0 ? Model.Nombre +" "+ Model.Apellido : "Nuevo Registro" )</li>*@
 </ol>
 
-@using (Html.BeginForm("Guardar", "Home", FormMethod.Post, new { id = "frm-alumno" }))
+@using (Html.BeginForm("Guardar2", "Home", FormMethod.Post, new { id = "frm-alumno" }))
 {
     @Html.AntiForgeryToken()
 
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="pull-right">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button data-ajax="true" data-confirm="Esta seguro de Guardar" type="submit" class="btn btn-primary">Guardar</button>
                 </div>
                
             </fieldset>
@@ -72,4 +72,38 @@
      
 }
 
+<!--
+<script>
 
+    $(document).ready(function () {
+
+        $("#frm-alumno").submit(function () {
+
+            var form = $(this);
+
+            $.ajax({
+                dataType: 'JSON',
+                type: 'POST',
+                url: form.attr('action'),
+                data: form.serialize,
+                success: function (r) {
+                    if (r.response) {
+                        window.location.href = r.href;
+                    }
+                    else
+                    {
+                        bootbox.alert(r.message);                      
+                    }             
+                },
+                error: function (jqXHR, textstatus, errorThrown) {
+                    console.log(textstatus + ' ' + errorThrown);
+                }
+            });
+
+            return false;
+        })
+
+    });
+
+</script>
+-->

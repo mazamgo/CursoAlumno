@@ -147,8 +147,13 @@
     <Content Include="bootstrap3.3.7\js\bootstrap.js" />
     <Content Include="bootstrap3.3.7\js\bootstrap.min.js" />
     <Content Include="bootstrap3.3.7\js\npm.js" />
+    <Content Include="css\style.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\ajax-loader.gif" />
     <Content Include="jquery-3.2.0\jquery-3.2.0.min.js" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\ini.js" />
+    <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
