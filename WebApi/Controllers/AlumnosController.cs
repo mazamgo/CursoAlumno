@@ -15,14 +15,7 @@ namespace WebApi.Controllers
     //[Authorize]
     public class AlumnosController : ApiController
     {
-        public IHttpActionResult GetApiAllCursos() 
-        {
-            Model1 ctx = new Model1();
-           
-            var data = ctx.Curso.GetListCursos();
-            return Ok(data);
-        }
-
+       
        [HttpGet]
        [Route("GetApiAllAlumnos")]
         public IHttpActionResult GetApiAllAlumnos()

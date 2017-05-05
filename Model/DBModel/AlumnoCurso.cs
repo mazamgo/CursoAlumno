@@ -15,6 +15,8 @@ namespace Model.DBModel
 
         public int Curso_id { get; set; }
 
+        [Required(ErrorMessage="Nota Requerida")]
+        [Range(0,20,ErrorMessage="Valor entre 0 y 20")]
         public decimal Nota { get; set; }
 
         public virtual Alumno Alumno { get; set; }

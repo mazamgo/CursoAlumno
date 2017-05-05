@@ -149,6 +149,7 @@
     <Content Include="bootstrap3.3.7\js\npm.js" />
     <Content Include="css\style.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\ajax-loader0.gif" />
     <Content Include="images\ajax-loader.gif" />
     <Content Include="jquery-3.2.0\jquery-3.2.0.min.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -205,6 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\crud.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Cursos.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -8,7 +8,6 @@ using System.Data;
 using System.Data.Entity;
 
 using Model.DBModel;
-using System.Data.Entity;
 using Model.Wrapper;
 
 using System.ComponentModel.DataAnnotations;
@@ -16,18 +15,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Model.Extensions
 {
     public static class AlumnosExtensions
-    {
-        public static IEnumerable<AlumnoWrapper.ListCursoWrapper> GetListCursos (this DbSet<Curso> dbSet) 
-        {
-            var data = dbSet.Select(x => new AlumnoWrapper.ListCursoWrapper
-            {
-                id = x.id,
-                Nombre = x.Nombre
-            }).OrderBy(x => x.Nombre).ToList();
-
-            return data;
-        
-        }
+    { 
         public static IEnumerable<AlumnoWrapper.ListAlumnosWrapper> GetAlumnos(this DbSet<Alumno> dbSet)
         {
             return dbSet.Select( x => new AlumnoWrapper.ListAlumnosWrapper {
@@ -191,7 +179,6 @@ namespace Model.Extensions
 
             return rm;
         }
-
 
         public static void EliminarAlumno(this DbSet<Alumno> dbset, int id)
         {

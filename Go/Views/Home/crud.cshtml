@@ -7,70 +7,121 @@
 
 <ol class="breadcrumb">
     <li><a href="~/">Alumnos</a></li>
-    @*<li class="active">@(Model.id > 0 ? Model.Nombre +" "+ Model.Apellido : "Nuevo Registro" )</li>*@
+    <li class="active">@(Model.id > 0 ? Model.Nombre +" "+ Model.Apellido : "Nuevo Registro" )</li>
 </ol>
 
-@using (Html.BeginForm("Guardar2", "Home", FormMethod.Post, new { id = "frm-alumno" }))
-{
-    @Html.AntiForgeryToken()
 
-    @Html.ValidationSummary(true,"", new {@class = "text-danger" })
-
-    @Html.HiddenFor(x => x.id)
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#informacion" aria-controls="informacion" role="tab" data-toggle="tab">Informacion</a></li>
+    @if (Model.id > 0)
+    {
+        <li role="presentation"><a href="#curso" aria-controls="curso" role="tab" data-toggle="tab">Curso</a></li>
+    }
     
-    <div class="panel panel-default">
-        <div class="panel-heading">Informacion Personal</div>
-        <div class="panel-body">
+</ul>
 
-            <fieldset>
-                <div class="form-group">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Nombre)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Apellido)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Apellido)
-                    @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
-                </div>
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="informacion">
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Sexo)
-                </div>
-               
-                <div class="editor-field" >
-                    <select name="Sexo" class="form-control">
-                        <option @(Model.Sexo == 1 ? "selected" : "") value="1">Masculino</option>
-                        <option @(Model.Sexo == 2 ? "selected" : "") value="2">Femenino</option>
-                    </select>
-                </div>
+        @using (Html.BeginForm("Guardar2", "Home", FormMethod.Post, new { id = "frm-alumno" }))
+        {
+            @Html.AntiForgeryToken()
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.FechaNacimiento)
-                </div>
-                <div class="editor-field form-group">
-                    @Html.EditorFor(model => model.FechaNacimiento, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger"})
-                </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="pull-right">
-                    <button data-ajax="true" data-confirm="Esta seguro de Guardar" type="submit" class="btn btn-primary">Guardar</button>
-                </div>
-               
-            </fieldset>
+            @Html.HiddenFor(x => x.id)
 
-        </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Informacion Personal</div>
+                <div class="panel-body">
+
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Nombre)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Apellido)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Apellido)
+                            @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Sexo)
+                        </div>
+
+                        <div class="editor-field">
+                            <select name="Sexo" class="form-control">
+                                <option @(Model.Sexo == 1 ? "selected" : "") value="1">Masculino</option>
+                                <option @(Model.Sexo == 2 ? "selected" : "") value="2">Femenino</option>
+                            </select>
+                        </div>
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.FechaNacimiento)
+                        </div>
+                        <div class="editor-field form-group">
+                            @Html.EditorFor(model => model.FechaNacimiento, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="pull-right">
+                            <button data-ajax="true" data-confirm="Esta seguro de Guardar" type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+
+                    </fieldset>
+
+                </div>
+            </div>
+
+
+        }
+
+
     </div>
+    @if (Model.id > 0)
+    {
+        <div role="tabpanel" class="tab-pane" id="curso"></div>
+    }
     
-     
-}
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        
+        @if (Model.id > 0) 
+        {
+            <text>
+        CargarCursos();
+            </text>
+        }
+        
+        });
+
+    function CargarCursos()
+    {
+        $("#curso").load('@Url.Content("~/Home/Cursos/?alumnoID=" + Model.id)');
+    }
+
+</script>
+
+
+<script>
+    function SoyAlgo()
+    {
+        alert('Soy Algo..');
+    }
+</script>
 
 <!--
 <script>

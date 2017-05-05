@@ -57,8 +57,10 @@
     <Compile Include="DBModel\Curso.cs" />
     <Compile Include="DBModel\Model1.cs" />
     <Compile Include="Extensions\AlumnosExtensions.cs" />
+    <Compile Include="Extensions\CursoExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wrapper\AlumnoWrapper.cs" />
+    <Compile Include="Wrapper\CursoWrapper.cs" />
     <Compile Include="Wrapper\ResponseModel.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -30,14 +30,7 @@ namespace Model.Wrapper
             public string Apellido { get; set; }
             public int Sexo { get; set; }
             public string FechaNacimiento { get; set; }        
-        }
-
-        public class ListCursoWrapper 
-        {
-            public int id { get; set; }
-            public string Nombre { get; set; }
-
-        }
+        }       
 
 
     }
