@@ -1,0 +1,56 @@
+﻿@model Model.DBModel.Adjunto
+
+@{
+    List<Model.DBModel.Adjunto> adjuntos = ViewBag.Adjuntos;
+}
+
+@using (Html.BeginForm("GuardarAdjunto", "Home", FormMethod.Post, new { id = "frm-Adjunto" })) 
+{
+
+    @Html.HiddenFor(x => x.Alumno_id)
+
+
+    <div class="form-group">
+        <label>Adjuntar Documento</label>
+        <input type="file" name="Archivo" />
+    </div>
+    
+    <div>
+        <button data-ajax="true" data-confirm="Seguro de Adjuntar Archivo" type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+
+}
+
+<hr />
+
+<!-- Adjuntos -->
+@if (adjuntos.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:200px">Archivo</th>
+                <th style="width:200px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in adjuntos)
+            {
+                <tr>
+                    <td><a href="~/Uploads/@c.Archivo" target="_blank">@c.Archivo</a></td>
+                    <td>
+                        <a onclick="return confirm('Desea Eliminar');" class="btn btn-xs btn-danger" href="~/home/EliminarAdjunto/@c.id">Eliminar</a>
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+
+
+
+}
+
+
+

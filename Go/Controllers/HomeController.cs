@@ -11,14 +11,17 @@ using Model;
 using Model.DBModel;
 using Model.Extensions;
 using Model.Wrapper;
+using System.IO;
 
 namespace Go.Controllers
 {
     public class HomeController : Controller
     {
+
         //private Alumno alumno = new Alumno();
         private AlumnoCurso alumno_curso = new AlumnoCurso();
         private Curso curso = new Curso();
+        private Adjunto adjunto = new Adjunto();
 
         Model1 ctx = new Model1();
 
@@ -105,10 +108,10 @@ namespace Go.Controllers
            return Json(rm);
        }
       
-       public ActionResult EliminarAlumnoCurso2(FormCollection collection, int id, Alumno alumno)
+       public ActionResult EliminarAlumnoCurso2(int id)
        {           
            ctx.AlumnoCurso.EliminarAlumnoCurso2(id);
-           return Redirect("~/Home/Crud"+collection[id].ToString());
+           return Redirect("~/Home/Crud");
        }
 
        //No  funciono bien.
@@ -124,5 +127,35 @@ namespace Go.Controllers
 
            return Json(rm);
        }
+
+        public PartialViewResult Adjuntos(int alumnoID) 
+        {
+            ViewBag.Adjuntos = ctx.Adjunto.GetListAdjunto(alumnoID);
+
+            adjunto.Alumno_id = alumnoID;
+            return PartialView(adjunto);
+        }
+
+        public JsonResult GuardarAdjunto(Adjunto adjunto, HttpPostedFileBase Archivo)
+        {
+            var rm = new ResponseModel();
+
+            if(Archivo != null)           
+            {
+                //renombrarlo
+                string archivo = DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(Archivo.FileName);
+                Archivo.SaveAs(Server.MapPath("~/Uploads/" + archivo));
+                adjunto.Archivo = archivo;
+
+                int id = adjunto.id;
+                rm = ctx.Adjunto.SaveAdjunto3(adjunto, id);
+                if (rm.response)
+                {
+                    rm.function = "CargarAdjuntos()";
+                }
+            }
+            return Json(rm);
+        }
+
     }
 }
