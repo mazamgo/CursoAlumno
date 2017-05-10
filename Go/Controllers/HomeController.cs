@@ -13,6 +13,8 @@ using Model.Extensions;
 using Model.Wrapper;
 using System.IO;
 
+using Infragistics.Web.Mvc;
+
 namespace Go.Controllers
 {
     public class HomeController : Controller
@@ -26,9 +28,78 @@ namespace Go.Controllers
         Model1 ctx = new Model1();
 
         public ActionResult Index()
-        {           
-            return View(ctx.Alumno.GetAllAlumnos());                          
+        {            
+            return View(ctx.Alumno.GetAllAlumnos());              
             //return View(alumno.ListarAlumnos());
+        }
+
+        public ActionResult Index2()
+        {
+            GridModel model = new GridModel();
+            model.AutoGenerateColumns = false;
+            
+            GridColumn idColumn = new GridColumn();           
+            idColumn.Key = "id";
+            idColumn.HeaderText = "ID";
+            idColumn.DataType = "number";
+
+            GridColumn NombreColumn = new GridColumn();            
+            NombreColumn.Key = "Nombre";
+            NombreColumn.HeaderText = "Nombre";
+            NombreColumn.DataType = "string";
+
+            GridColumn ApellidoColumn = new GridColumn();
+            ApellidoColumn.Key = "Apellido";
+            ApellidoColumn.HeaderText = "Apellido";
+            ApellidoColumn.DataType = "string";
+
+            GridColumn SexoColumn = new GridColumn();
+            SexoColumn.Key = "Sexo";
+            SexoColumn.HeaderText = "Sexo";
+            SexoColumn.DataType = "string";
+
+            GridColumn FechaNacimientoColumn = new GridColumn();
+            FechaNacimientoColumn.Key = "FechaNacimiento";
+            FechaNacimientoColumn.HeaderText = "Fecha Nacimiento";
+            FechaNacimientoColumn.DataType = "datetime";
+
+            model.Columns.Add(idColumn);
+            model.Columns.Add(NombreColumn);
+            model.Columns.Add(ApellidoColumn);
+            model.Columns.Add(SexoColumn);
+            model.Columns.Add(FechaNacimientoColumn);
+            
+            //Activando Ordenamiento
+            GridSorting sorting = new GridSorting();
+            sorting.Mode = SortingMode.Single;
+
+            ColumnSortingSetting colSetting = new ColumnSortingSetting();
+            colSetting.ColumnIndex = 1;
+            colSetting.ColumnKey   = "Nombre";
+            colSetting.AllowSorting = true;
+
+            //Activando Filtrado
+            GridFiltering filtering = new GridFiltering();
+
+            ColumnFilteringSetting colFilter = new ColumnFilteringSetting();
+            colFilter.AllowFiltering = true;
+            
+            sorting.ColumnSettings.Add(colSetting);
+            filtering.ColumnSettings.Add(colFilter);
+
+            model.Features.Add(sorting);
+            model.Features.Add(filtering);
+
+            //Activando Paginacion
+            GridPaging gridpaging = new GridPaging();
+            gridpaging.PageSize = 2;
+            model.Features.Add(gridpaging);
+
+            //Exportar
+            
+
+            model.DataSource = ctx.Alumno.GetAllAlumnos3();
+            return View(model);           
         }
 
         public ActionResult ver(int id) 

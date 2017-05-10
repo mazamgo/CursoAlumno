@@ -42,6 +42,22 @@ namespace Model.Extensions
             return data;
         }
 
+        //IQueryable
+        public static IQueryable<AlumnoWrapper.ListAlumnosWrapper> GetAllAlumnos3(this DbSet<Alumno> dbSet)
+        {
+            var data = dbSet.Select(x => new AlumnoWrapper.ListAlumnosWrapper
+            {
+                id = x.id,
+                Nombre = x.Nombre,
+                Apellido = x.Apellido,
+                Sexo = x.Sexo,
+                FechaNacimiento = x.FechaNacimiento
+            }
+                ).OrderBy(x => x.Nombre);
+
+            return data;
+        }
+
         public static IEnumerable<AlumnoWrapper.ListAlumnosWrapper>GetAlumnosID(this DbSet<Alumno> dbSet, int id)
         {
             return dbSet.Select(x => new AlumnoWrapper.ListAlumnosWrapper
