@@ -1,0 +1,70 @@
+﻿@model Model.DBModel.AlumnoCurso
+
+@{ 
+    List<Model.DBModel.Curso> cursos = ViewBag.Cursos;
+    List<Model.DBModel.AlumnoCurso> AlumnoCurso = ViewBag.AlumnoCurso;
+}
+
+@if (cursos.Count() > 0) 
+{    
+    using (Html.BeginForm("GuardarCurso", "Home", FormMethod.Post, new { id = "frm-Curso" }))
+    {
+        @Html.HiddenFor(x => x.Alumno_id)
+
+        <div class="form-group">
+            <label>Seleccione un Curso</label>
+            <select class="form-control" name="Curso_id">
+                @foreach (var c in cursos)
+                {
+                <option value="@c.id">@c.Nombre</option> }
+            </select>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Nota)
+            @Html.TextBoxFor(x => x.Nota, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Nota, null, new { @class = "label label-danger" })
+        </div>
+
+        <div>
+            <button data-ajax="true" data-confirm="Esta seguro de asignar el curso" type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    }
+}
+    
+
+<hr />
+<!--CURSOS ELEGIDOS-->
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:200px">Curso</th>
+                <th style="width:200px">Nota</th>
+                <th style="width:200px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in AlumnoCurso)
+            {
+                <tr>
+                    <td>@(c.Curso.Nombre)</td>
+                    <td>@(c.Nota)</td>
+                    <td>                    
+                    <a onclick="return confirm('Desea Eliminar');" class="btn btn-xs btn-danger" href="~/home/EliminarAlumnoCurso2/@c.id">Eliminar</a> 
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+
+
+
+<script>
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse("#frm-Curso");
+    })
+</script>
+

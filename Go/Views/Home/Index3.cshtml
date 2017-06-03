@@ -1,0 +1,95 @@
+﻿@using Infragistics.Web.Mvc
+@model IQueryable<Model.Wrapper.AlumnoWrapper.ListAlumnosWrapper>
+
+@{
+    ViewBag.Title = "Index3";  
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<link href="~/Content/Infragistics/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+<link href="~/Content/Infragistics/css/structure/infragistics.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.3.min.js"></script>
+<script src="~/Scripts/Infragistics/js/infragistics.core.js"></script>
+<script src="~/Scripts/Infragistics/js/infragistics.lob.js"></script>
+
+
+<h2 class="page-header">
+    <a href="Home/crud" class="btn btn-default pull-right ">Nuevo</a>
+    Listado Alumnos3
+</h2>
+
+<!---->
+
+@(Html.Infragistics().Grid(Model)
+        .ID("grid1").ResponseDataKey("DataRecords").    
+    AutoCommit(true).
+    AutoGenerateColumns(false).
+    AutoGenerateLayouts(false).   
+    ResponseDataKey(null).
+        PrimaryKey("id").            
+        Rest(true).       
+    Columns(column =>
+    {
+        column.For(x => x.id).HeaderText("Alumno ID").DataType("string").Hidden(true);
+        column.For(x => x.Nombre).HeaderText("Nombre").DataType("string");
+        column.For(x => x.Apellido).HeaderText("Apellido").DataType("string");
+        column.For(x => x.Sexo).HeaderText("Sexo").DataType("string");
+        column.For(x => x.FechaNacimiento).HeaderText("Fecha Nacimiento").DataType("string");
+    }).
+    RestSettings(rest =>
+    {
+        rest.RestSetting().Create(r => r.RestVerbSetting().Url("http://localhost:43573/Home/Guardar3/").Batch(false)).
+        Update(r => r.RestVerbSetting().Url("http://localhost:48692/PostApiUpdateAlumno/").Batch(false)).
+        Remove(r => r.RestVerbSetting().Url("http://localhost:48692/PostApiRemoveAlumno/").Batch(false));
+    }).
+    Features(f => f.Updating()).
+                    DataSourceUrl("/Home/GetAlumnosAll").
+                    //ClientDataSourceType("JSON").                                                                       
+                    Render())
+ 5
+ 
+<br />
+<br />
+
+
+<button id="saveBtn">Save Changes</button>
+
+<script>
+    $("#saveBtn").click(function () {
+        $("#grid1").igGrid("saveChanges");
+    });
+
+</script>
+    
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width:200px">Nombre</th>
+            <th style="width:200px">Sexo</th>
+            <th style="width:200px">Fecha de Nacimiento</th>
+            <th style="width:200px"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@(m.Nombre + " " + m.Apellido)</td>
+                <td>@(m.Sexo == 1 ? "Hombre" : "Mujer")</td>
+                <td>@m.FechaNacimiento</td>
+                <td>
+                    <a class="btn btn-xs btn-default" href="~/home/ver/@m.id">Ver</a>
+                    <a class="btn btn-xs btn-primary" href="~/home/crud/@m.id">Editar</a>
+                    <a onclick="return confirm('Desea Eliminar');" class="btn btn-xs btn-danger" href="~/home/Eliminar/@m.id">Eliminar</a>
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+<br />

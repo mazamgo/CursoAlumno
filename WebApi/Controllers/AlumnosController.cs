@@ -15,15 +15,16 @@ namespace WebApi.Controllers
     //[Authorize]
     public class AlumnosController : ApiController
     {
-       
+
        [HttpGet]
        [Route("GetApiAllAlumnos")]
-        public IHttpActionResult GetApiAllAlumnos()
+        public IQueryable<AlumnoWrapper.ListAlumnosWrapper> GetApiAllAlumnos()
         {
            Model1 contex = new Model1();
-           //var data = contex.Alumno.GetAlumnos();           
-           var data = contex.Alumno.GetAllAlumnos();
-           return Ok(data);
+           //var data = contex.Alumno.GetAlumnos();  
+           //var data = contex.Alumno.GetAllAlumnos();
+           var data = contex.Alumno.GetAllAlumnos3();
+           return (data);
         }
 
         [HttpGet]
@@ -83,7 +84,23 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("PostApiRemoveAlumno/{id}")]
+        public IHttpActionResult PostApiRemoveAlumno(int id) 
+        {
+            try 
+            {
+                Model1 ctx = new Model1();
+                ctx.Alumno.EliminarAlumno(id);
+                return Ok();            
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
+            
 
+        }
 
     }
 }

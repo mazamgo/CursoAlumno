@@ -14,6 +14,8 @@ using Model.Wrapper;
 using System.IO;
 
 using Infragistics.Web.Mvc;
+using System.Net.Http;
+using System.Net;
 
 namespace Go.Controllers
 {
@@ -94,12 +96,22 @@ namespace Go.Controllers
             GridPaging gridpaging = new GridPaging();
             gridpaging.PageSize = 2;
             model.Features.Add(gridpaging);
-
-            //Exportar
-            
-
+                      
             model.DataSource = ctx.Alumno.GetAllAlumnos3();
             return View(model);           
+        }
+
+        public ActionResult Index3()
+        {
+            //return View(new Alumno());
+            return View(ctx.Alumno.GetAllAlumnos3().AsQueryable());            
+        }
+
+        public IEnumerable<Model.Wrapper.AlumnoWrapper.ListAlumnosWrapper> GetAlumnosAll()
+        {
+            var customers = ctx.Alumno.GetAllAlumnos3();
+           
+            return customers;
         }
 
         public ActionResult ver(int id) 
@@ -129,6 +141,7 @@ namespace Go.Controllers
             }
             return View(alumno);
         }
+
              
         public JsonResult Guardar2(Alumno alumno)
         {
@@ -145,6 +158,21 @@ namespace Go.Controllers
                 }                
             }
             return Json(rm);
+        }
+       
+        public ActionResult Guardar3(Alumno alumno)
+        {
+            //if (ModelState.IsValid)
+            //{
+                int id = alumno.id;
+                ctx.Alumno.SaveAlumnos2(alumno, id);                              
+                return Redirect("~/Home/Index3");
+            //}
+            //else
+            //{
+            //    return View("~/Views/Home/crud.cshtml", alumno);
+            //}
+            //return View(alumno);
         }
 
        public ActionResult Eliminar(int id) 
