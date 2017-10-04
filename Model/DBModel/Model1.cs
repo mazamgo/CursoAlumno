@@ -16,6 +16,7 @@ namespace Model.DBModel
         public virtual DbSet<Alumno> Alumno { get; set; }
         public virtual DbSet<AlumnoCurso> AlumnoCurso { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
