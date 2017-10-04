@@ -11,6 +11,7 @@ using Model;
 using Model.DBModel;
 using Model.Extensions;
 using Model.Wrapper;
+using Go.filters;
 using System.IO;
 
 using Infragistics.Web.Mvc;
@@ -19,6 +20,7 @@ using System.Net;
 
 namespace Go.Controllers
 {
+     [Autenticado]
     public class HomeController : Controller
     {
 

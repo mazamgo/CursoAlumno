@@ -15,7 +15,7 @@ namespace Model.Extensions
 {
     public static class UsuarioExtensions
     {
-        public static ResponseModel Acceder(this DbSet<Usuario> dbset, string correos, string password) 
+        public static ResponseModel Acceder(this DbSet<Usuario> dbset, string Email, string password) 
         {
             var rm = new ResponseModel();
 
@@ -25,7 +25,7 @@ namespace Model.Extensions
                 {
                     password = HashHelper.MD5(password);
 
-                    var usuario = ctx.Usuario.Where(x => x.Email == correos)
+                    var usuario = ctx.Usuario.Where(x => x.Email == Email)
                                              .Where(x => x.Password == password)
                                              .SingleOrDefault();
                     if (usuario != null) 
