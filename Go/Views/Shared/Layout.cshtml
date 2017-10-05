@@ -1,11 +1,15 @@
-﻿
+﻿@{
+    Layout = null;
+    string controlador = ViewContext.RouteData.Values["Controller"].ToString().ToLower();    
+}
 
 <!DOCTYPE html>
 
-<html>
+<html lang="es">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Layout</title>
+    <title>@ViewBag.Title  | Curso Alumno V 1.0.0</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
     <link href="~/bootstrap3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/bootstrap3.3.7/css/bootstrap-theme.min.css" rel="stylesheet" />
@@ -18,15 +22,70 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="jumbotron">
-            MVC
-        </h1>
+    @if (controlador != "login")
+    {
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        Curso Alumno V 1.0.0
+                    </a>
+                </div>
 
-        @RenderBody()
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="~/Home/Index">Listado I</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/Index2">Listado II</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/Index3">Listado III</a>
+                        </li>                       
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img id="user-pic" src="~/Uploads/xxx" />
+                                <b>Hola</b>, Juan Perez <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="~/">Ver Portafolio</a>
+                                </li>
+                                <li>
+                                    <a href="~/Login/logout">Finalizar Sesión</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    }
+
+    <div class="container">  
+             
+        <div class="row">
+            <div class="col-xs-12">
+                @RenderBody()
+            </div>
+        </div>
+
+        <div class="well text-center">
+            2017 - Proyecto desarrollado por <a target="_blank" href="http://go.com.ni">Go</a>.
+        </div>
 
     </div>
-    
 
     <script src="~/bootstrap3.3.7/js/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -35,7 +94,6 @@
 
     <script src="~/Scripts/ini.js"></script>
     <script src="~/Scripts/jquery.form.js"></script>
-   
 
 </body>
 </html>
