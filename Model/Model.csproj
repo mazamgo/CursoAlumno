@@ -65,6 +65,7 @@
     <Compile Include="Wrapper\AlumnoWrapper.cs" />
     <Compile Include="Wrapper\CursoWrapper.cs" />
     <Compile Include="Wrapper\ResponseModel.cs" />
+    <Compile Include="Wrapper\UsuarioWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Helper\Helper.csproj">

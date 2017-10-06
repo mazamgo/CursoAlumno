@@ -9,6 +9,7 @@ using Model.DBModel;
 using Model.Wrapper;
 using Model.Extensions;
 using Go.filters;
+using Helper;
 
 namespace Go.Controllers
 {
@@ -17,7 +18,8 @@ namespace Go.Controllers
         //
         // GET: /Login/
         Usuario usuario = new Usuario();
-        Model1 ctx = new Model1(); 
+        Model1 ctx = new Model1();
+ 
         [NoLogin]
         public ActionResult Index()
         {
@@ -35,6 +37,12 @@ namespace Go.Controllers
             }
 
             return Json(rm);
+        }
+
+        public ActionResult Logout()
+        {
+            SessionHelper.DestroyUserSession();
+            return Redirect("~/");
         }
 
     }

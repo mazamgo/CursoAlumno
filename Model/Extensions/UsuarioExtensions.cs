@@ -47,7 +47,23 @@ namespace Model.Extensions
             return rm;
         }
 
+       public static Usuario GetLoginUsuario(long usuarioid) 
+        {
+            Usuario usuario = new Usuario();
+            try 
+            {
+                using (var ctx = new Model1()) 
+                {
+                    usuario = ctx.Usuario.Where(x => x.UsuarioID == usuarioid).SingleOrDefault();
+                }            
+            }
+            catch (Exception e) 
+            {
+                throw;
+            }
 
+            return usuario;        
+        }
 
 
 

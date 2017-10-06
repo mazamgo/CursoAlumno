@@ -1,6 +1,12 @@
-﻿@{
+﻿@using Model.DBModel;
+@using Model.Extensions;
+
+@{
+      
     Layout = null;
-    string controlador = ViewContext.RouteData.Values["Controller"].ToString().ToLower();    
+    string controlador = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
+    Usuario usuario = new Usuario();
+    usuario = UsuarioExtensions.GetLoginUsuario(Helper.SessionHelper.GetUser());
 }
 
 <!DOCTYPE html>
@@ -55,12 +61,12 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img id="user-pic" src="~/Uploads/xxx" />
-                                <b>Hola</b>, Juan Perez <span class="caret"></span>
+                                <img id="user-pic" src="~/Uploads/@usuario.Foto" />
+                                <b>Hola</b>,@usuario.Nombre <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="~/">Ver Portafolio</a>
+                                    <a href="~/">Usuarios</a>
                                 </li>
                                 <li>
                                     <a href="~/Login/logout">Finalizar Sesión</a>
