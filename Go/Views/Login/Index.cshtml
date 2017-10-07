@@ -13,19 +13,22 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Acceso al sistema</div>
                 <div class="panel-body">
-                    @using (Html.BeginForm("Acceder", "Login", FormMethod.Post))
+                    @using (Html.BeginForm("Acceder", "Login", FormMethod.Post, new { id = "frm-login" }))
                     {
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="text" name="Email" class="form-control" placeholder="Ingrese su correo electrónico" />
+                            <input type="text" id="Email" name="Email" class="form-control" placeholder="Ingrese su correo electrónico" />
                         </div>
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input type="password" name="Password" class="form-control" placeholder="Ingrese su password" />
+                            <input type="password" id="Password" name="Password" class="form-control" placeholder="Ingrese su password" />
                         </div>
                         <div class="text-right">
                             <button data-ajax="true" type="submit" class="btn btn-primary">
-                                Ingresar
+                                Ingresar data-ajax
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Ingresar $.ajax
                             </button>
                         </div>
                     }
@@ -34,3 +37,38 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+          $("#frm-login").submit(function () {
+
+            var form = $(this);
+            var Email = document.getElementById("Email").value;
+            var password = document.getElementById("Password").value;
+
+            $.ajax({
+                dataType: 'JSON',
+                type: 'POST',
+                url: form.attr('action'),
+                data: { Email: Email, password: password },
+                success: function (r) {
+                    if (r.response) {
+                        window.location.href = r.href;
+                    }
+                    else
+                    {
+                        bootbox.alert(r.message);
+                    }
+                },
+                error: function (jqXHR, textstatus, errorThrown) {
+                    console.log(textstatus + ' ' + errorThrown);
+                }
+            });
+
+            return false;
+        })
+
+
+
+</script>
