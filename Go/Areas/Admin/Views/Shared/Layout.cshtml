@@ -2,7 +2,7 @@
 @using Model.Extensions;
 
 @{
-      
+
     Layout = null;
     string controlador = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
     Usuario usuario = new Usuario();
@@ -36,9 +36,7 @@
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                       
                     </button>
                     <a class="navbar-brand" href="#">
                         Curso Alumno V 1.0.0
@@ -49,24 +47,18 @@
                 <div class="collapse navbar-collapse" id="menu">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="~/Home/Index">Listado I</a>
-                        </li>
-                        <li>
-                            <a href="~/Home/Index2">Listado II</a>
-                        </li>
-                        <li>
-                            <a href="~/Home/Index3">Listado III</a>
-                        </li>                       
+                            <a href="~/Admin/Usuario/Index">Usuario</a>
+                        </li>                      
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img id="user-pic" src="~/Uploads/@usuario.Foto" />
-                                <b>Hola</b>,@usuario.Nombre <span class="caret"></span>
+                                <img id="user-pic" src="~/Uploads/@if (usuario != null) { @usuario.Foto }" />
+                                <b>Hola</b>,@if (usuario != null) { @usuario.Nombre } <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="~/Admin/Usuario">Usuarios</a>
+                                    <a href="~/">Alumnos</a>
                                 </li>
                                 <li>
                                     <a href="~/Login/logout">Finalizar Sesión</a>
@@ -79,8 +71,8 @@
         </nav>
     }
 
-    <div class="container">  
-             
+    <div class="container">
+
         <div class="row">
             <div class="col-xs-12">
                 @RenderBody()
@@ -103,3 +95,4 @@
 
 </body>
 </html>
+
